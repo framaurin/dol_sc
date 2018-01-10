@@ -1,0 +1,37 @@
+# Copyright (C) 2017 SuperAdmin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+#
+# Générique
+#
+
+# Module label 'ModuleScierieName'
+ModuleScierieName = scierie
+# Module description 'ModuleScierieDesc'
+ModulescierieDesc = Permet d'utiliser les extrafields pour calculer le volume d'un produit et de faire toutes les autres mises en formes pour la page pdf
+
+#
+# Page d'administration
+#
+ScierieSetup = Configuration du module scierie
+Settings = Réglages
+ScierieSetupPage = Page de réglage de scierie
+
+#
+# Page À propos
+#
+About = À propos
+ScierieAbout = À propos de scierie
+ScierieAboutPage = Page à propos de scierie

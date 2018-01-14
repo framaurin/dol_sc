@@ -55,7 +55,7 @@ class modScierie extends DolibarrModules
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','interface','other'
 		// It is used to group modules by family in module setup page
-		$this->family = "technic";
+		$this->family = "Maurin";
 		// Module position in the family
 		$this->module_position = 500;
 		// Gives the possibility to the module, to provide his own family info and position of this family (Overwrite $this->family and $this->module_position. Avoid this)
@@ -72,7 +72,7 @@ class modScierie extends DolibarrModules
 		$this->editor_url = 'None';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
-		$this->version = 'development';
+		$this->version = '1.0.0';
 		// Key used in llx_const table to save module status enabled/disabled (where scierie is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
@@ -92,8 +92,8 @@ class modScierie extends DolibarrModules
 									'theme' => 0,                                    	// Set this to 1 if module has its own theme directory (theme)
 		                        	'tpl' => 0,                                      	// Set this to 1 if module overwrite template dir (core/tpl)
 									'barcode' => 0,                                  	// Set this to 1 if module has its own barcode directory (core/modules/barcode)
-									'models' => 0,                                   	// Set this to 1 if module has its own models directory (core/modules/xxx)
-									'css' => array('/scierie/css/scierie.css.php'),	// Set this to relative path of css file if module has its own css file
+*/									'models' => 1,                                   	// Set this to 1 if module has its own models directory (core/modules/xxx)
+/*									'css' => array('/scierie/css/scierie.css.php'),	// Set this to relative path of css file if module has its own css file
 	 								'js' => array('/scierie/js/scierie.js.php'),          // Set this to relative path of js file if module must load a js on all pages
 									'hooks' => array('hookcontext1','hookcontext2') 	// Set here all hooks context managed by module. You can also set hook context 'all'
 */		                        );

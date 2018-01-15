@@ -74,95 +74,106 @@ class ActionsScierie
 	 */
 	public function printObjectLineTitle($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $conf, $user, $langs, $inputalsopricewithtax, $outputalsopricetotalwithtax;
 
 		$error = 0; // Error counter
+		
+		// Define usemargins
+		$usemargins=0;
+		if (! empty($conf->margin->enabled) && ! empty($object->element) && in_array($object->element,array('facture','propal','commande'))) $usemargins=1;
 
-        
+
+/*        
 		print_r($parameters);
 		print_r($object);
 		echo "action: " . $action;
         
-/*
-	    if (in_array($parameters['currentcontext'], array('printObjectLineTitle'))) {    // do something only for the context 'printObjectLineTitle'
-    		
-			print '<tr class="liste_titre nodrag nodrop">';
-
-    		if (! empty($conf->global->MAIN_VIEW_LINE_NUMBER)) print '<td class="linecolnum" align="center" width="5">&nbsp;</td>';
-
-    		// Description
-    		print '<td class="linecoldescription">'.$langs->trans('Description').'</td>';
-
-    		if ($this->element == 'supplier_proposal')
-    		{
-    			print '<td class="linerefsupplier" align="right"><span id="title_fourn_ref">'.$langs->trans("SupplierProposalRefFourn").'</span></td>';
-    		}
-
-    		// VAT
-    		print '<td class="linecolvat" align="right" width="80">'.$langs->trans('VAT').'</td>';
-
-    		// Price HT
-    		print '<td class="linecoluht" align="right" width="80">'.$langs->trans('PriceUHT').'</td>';
-
-    		// Multicurrency
-    		if (!empty($conf->multicurrency->enabled)) print '<td class="linecoluht_currency" align="right" width="80">'.$langs->trans('PriceUHTCurrency', $this->multicurrency_code).'</td>';
-
-    		if ($inputalsopricewithtax) print '<td align="right" width="80">'.$langs->trans('PriceUTTC').'</td>';
-
-    		// Qty
-    		print '<td class="linecolqty" align="right">'.$langs->trans('Qty').'</td>';
-
-    		if($conf->global->PRODUCT_USE_UNITS)
-    		{
-    			print '<td class="linecoluseunit" align="left">'.$langs->trans('Unit').'</td>';
-    		}
-
-    		// Reduction short
-    		print '<td class="linecoldiscount" align="right">'.$langs->trans('ReductionShort').'</td>';
-
-    		if ($this->situation_cycle_ref) {
-    			print '<td class="linecolcycleref" align="right">' . $langs->trans('Progress') . '</td>';
-    		}
-
-    		if ($usemargins && ! empty($conf->margin->enabled) && empty($user->societe_id))
-    		{
-    			if (!empty($user->rights->margins->creer))
-    			{
-    				if ($conf->global->MARGIN_TYPE == "1")
-    					print '<td class="linecolmargin1 margininfos" align="right" width="80">'.$langs->trans('BuyingPrice').'</td>';
-    				else
-    					print '<td class="linecolmargin1 margininfos" align="right" width="80">'.$langs->trans('CostPrice').'</td>';
-    			}
-
-    			if (! empty($conf->global->DISPLAY_MARGIN_RATES) && $user->rights->margins->liretous)
-    				print '<td class="linecolmargin2 margininfos" align="right" width="50">'.$langs->trans('MarginRate').'</td>';
-    			if (! empty($conf->global->DISPLAY_MARK_RATES) && $user->rights->margins->liretous)
-    				print '<td class="linecolmargin2 margininfos" align="right" width="50">'.$langs->trans('MarkRate').'</td>';
-    		}
-
-    		// Total HT
-    		print '<td class="linecolht" align="right">'.$langs->trans('TotalHTShort').'</td>';
-
-    		// Multicurrency
-    		if (!empty($conf->multicurrency->enabled)) print '<td class="linecoltotalht_currency" align="right">'.$langs->trans('TotalHTShortCurrency', $this->multicurrency_code).'</td>';
-
-            if ($outputalsopricetotalwithtax) print '<td align="right" width="80">'.$langs->trans('TotalTTCShort').'</td>';
-
-    		print '<td class="linecoledit"></td>';  // No width to allow autodim
-
-    		print '<td class="linecoldelete" width="10"></td>';
-
-    		print '<td class="linecolmove" width="10"></td>';
-
-    		print "</tr>\n";
-		}
 */
+		print '<tr class="liste_titre nodrag nodrop">';
+
+		if (! empty($conf->global->MAIN_VIEW_LINE_NUMBER)) print '<td class="linecolnum" align="center" width="5">&nbsp;</td>';
+
+		// Description
+		print '<td class="linecoldescription">'.$langs->trans('Description').'</td>';
+
+		if ($object->element == 'supplier_proposal')
+		{
+			print '<td class="linerefsupplier" align="right"><span id="title_fourn_ref">'.$langs->trans("SupplierProposalRefFourn").'</span></td>';
+		}
+
+		// VAT
+		print '<td class="linecolvat" align="right" width="80">'.$langs->trans('VAT').'</td>';
+
+		// Price HT
+		print '<td class="linecoluht" align="right" width="80">'.$langs->trans('PriceUHT').'</td>';
+
+		// Multicurrency
+		if (!empty($conf->multicurrency->enabled)) print '<td class="linecoluht_currency" align="right" width="80">'.$langs->trans('PriceUHTCurrency', $object->multicurrency_code).'</td>';
+
+		if ($inputalsopricewithtax) print '<td align="right" width="80">'.$langs->trans('PriceUTTC').'</td>';
+
+		// Nombres
+		print '<td class="linecolnb" align="right">Nb.</td>';
+		// Longueur
+		print '<td class="linecollg" align="right">Lg.<br />(m)</td>';
+		// Hauteur
+		print '<td class="linecolht" align="right">Ht.<br />(cm)</td>';
+		// Largeur
+		print '<td class="linecollr" align="right">Lr.<br />(cm)</td>';
+		
+		// Qty
+		print '<td class="linecolqty" align="right">'.$langs->trans('Qty').'</td>';
+
+		if($conf->global->PRODUCT_USE_UNITS)
+		{
+			print '<td class="linecoluseunit" align="left">'.$langs->trans('Unit').'</td>';
+		}
+
+		// Reduction short
+		print '<td class="linecoldiscount" align="right">'.$langs->trans('ReductionShort').'</td>';
+
+		if ($object->situation_cycle_ref) {
+			print '<td class="linecolcycleref" align="right">' . $langs->trans('Progress') . '</td>';
+		}
+
+		if ($usemargins && ! empty($conf->margin->enabled) && empty($user->societe_id))
+		{
+			if (!empty($user->rights->margins->creer))
+			{
+				if ($conf->global->MARGIN_TYPE == "1")
+					print '<td class="linecolmargin1 margininfos" align="right" width="80">'.$langs->trans('BuyingPrice').'</td>';
+				else
+					print '<td class="linecolmargin1 margininfos" align="right" width="80">'.$langs->trans('CostPrice').'</td>';
+			}
+
+			if (! empty($conf->global->DISPLAY_MARGIN_RATES) && $user->rights->margins->liretous)
+				print '<td class="linecolmargin2 margininfos" align="right" width="50">'.$langs->trans('MarginRate').'</td>';
+			if (! empty($conf->global->DISPLAY_MARK_RATES) && $user->rights->margins->liretous)
+				print '<td class="linecolmargin2 margininfos" align="right" width="50">'.$langs->trans('MarkRate').'</td>';
+		}
+
+		// Total HT
+		print '<td class="linecolht" align="right">'.$langs->trans('TotalHTShort').'</td>';
+
+		// Multicurrency
+		if (!empty($conf->multicurrency->enabled)) print '<td class="linecoltotalht_currency" align="right">'.$langs->trans('TotalHTShortCurrency', $object->multicurrency_code).'</td>';
+
+		if ($outputalsopricetotalwithtax) print '<td align="right" width="80">'.$langs->trans('TotalTTCShort').'</td>';
+
+		print '<td class="linecoledit"></td>';  // No width to allow autodim
+
+		print '<td class="linecoldelete" width="10"></td>';
+
+		print '<td class="linecolmove" width="10"></td>';
+
+		print "</tr>\n";
+
 		if (! $error) {
 			$this->results = array('myreturn' => 999);
-			$this->resprints = 'A text to show';
+			$this->resprints = 'Salut';
 			return 1;                                    // or return 1 to replace standard code
 		} else {
-			$this->errors[] = 'Error message';
+			$this->errors[] = 'Vu que c\'est pas géré pas de problémes !';
 			return -1;
 		}
 	}

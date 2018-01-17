@@ -101,17 +101,6 @@ class ActionsScierie
 			print '<td class="linerefsupplier" align="right"><span id="title_fourn_ref">'.$langs->trans("SupplierProposalRefFourn").'</span></td>';
 		}
 
-		// VAT
-		print '<td class="linecolvat" align="right" width="80">'.$langs->trans('VAT').'</td>';
-
-		// Price HT
-		print '<td class="linecoluht" align="right" width="80">'.$langs->trans('PriceUHT').'</td>';
-
-		// Multicurrency
-		if (!empty($conf->multicurrency->enabled)) print '<td class="linecoluht_currency" align="right" width="80">'.$langs->trans('PriceUHTCurrency', $object->multicurrency_code).'</td>';
-
-		if ($inputalsopricewithtax) print '<td align="right" width="80">'.$langs->trans('PriceUTTC').'</td>';
-
 		// Nombres
 		print '<td class="linecolnb" align="right">Nb.</td>';
 		// Longueur
@@ -128,6 +117,17 @@ class ActionsScierie
 		{
 			print '<td class="linecoluseunit" align="left">'.$langs->trans('Unit').'</td>';
 		}
+
+		// VAT
+		print '<td class="linecolvat" align="right" width="80">'.$langs->trans('VAT').'</td>';
+
+		// Price HT
+		print '<td class="linecoluht" align="right" width="80">'.$langs->trans('PriceUHT').'</td>';
+
+		// Multicurrency
+		if (!empty($conf->multicurrency->enabled)) print '<td class="linecoluht_currency" align="right" width="80">'.$langs->trans('PriceUHTCurrency', $object->multicurrency_code).'</td>';
+
+		if ($inputalsopricewithtax) print '<td align="right" width="80">'.$langs->trans('PriceUTTC').'</td>';
 
 		// Reduction short
 		print '<td class="linecoldiscount" align="right">'.$langs->trans('ReductionShort').'</td>';

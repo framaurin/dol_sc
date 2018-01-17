@@ -140,7 +140,45 @@ if (empty($outputalsopricetotalwithtax)) $outputalsopricetotalwithtax=0;
 	</td>
 	<?php if ($object->element == 'supplier_proposal') { ?>
 		<td class="linecolrefsupplier" align="right"><?php echo $line->ref_fourn; ?></td>
-	<?php }
+	<?php } ?>
+	
+
+	<?php 
+//MODIFICATION PRINCIPALE	
+		//Ajout des extrafields
+		if (!empty($extrafieldsline))
+		{
+			foreach($extrafieldsline->attribute_label as $key=>$label)
+			{
+				?>
+				<td align="right" class="linecol<?php echo $key; ?> nowrap"><?php echo $line->array_options['options_'.$key]; ?></td>
+	<?php	}
+
+		}
+//FIN MODIFICATION PRINCIPALE 
+	
+	//Quantité ?>
+	<td align="right" class="linecolqty nowrap"><?php $coldisplay++; ?>
+	<?php if ((($line->info_bits & 2) != 2) && $line->special_code != 3) {
+			// I comment this because it shows info even when not required
+			// for example always visible on invoice but must be visible only if stock module on and stock decrease option is on invoice validation and status is not validated
+			// must also not be output for most entities (proposal, intervention, ...)
+			//if($line->qty > $line->stock) print img_picto($langs->trans("StockTooLow"),"warning", 'style="vertical-align: bottom;"')." ";
+			echo $line->qty;
+		} else echo '&nbsp;';	?>
+	</td>
+
+	<?php
+	if($conf->global->PRODUCT_USE_UNITS)
+	{
+		print '<td align="left" class="linecoluseunit nowrap">';
+		$label = $line->getLabelOfUnit('short');
+		if ($label !== '') {
+			print $langs->trans($label);
+		}
+		print '</td>';
+	}
+	
 	// VAT Rate
 	?>
 	<td align="right" class="linecolvat nowrap"><?php $coldisplay++; ?><?php
@@ -164,43 +202,7 @@ if (empty($outputalsopricetotalwithtax)) $outputalsopricetotalwithtax=0;
 	<td align="right" class="linecoluttc nowrap"><?php $coldisplay++; ?><?php echo (isset($line->pu_ttc)?price($line->pu_ttc):price($line->subprice)); ?></td>
 	<?php } ?>
 	
-	<?php 
-		//Ajout des extrafields
-		if (!empty($extrafieldsline))
-		{
-			foreach($extrafieldsline->attribute_label as $key=>$label)
-			{
-				?>
-				<td align="right" class="linecol<?php echo $key; ?> nowrap"><?php echo $line->array_options['options_'.$key]; ?></td>
-	<?php	}
-
-		}
-		
-
-	?>
 	
-	<td align="right" class="linecolqty nowrap"><?php $coldisplay++; ?>
-	<?php if ((($line->info_bits & 2) != 2) && $line->special_code != 3) {
-			// I comment this because it shows info even when not required
-			// for example always visible on invoice but must be visible only if stock module on and stock decrease option is on invoice validation and status is not validated
-			// must also not be output for most entities (proposal, intervention, ...)
-			//if($line->qty > $line->stock) print img_picto($langs->trans("StockTooLow"),"warning", 'style="vertical-align: bottom;"')." ";
-			echo $line->qty;
-		} else echo '&nbsp;';	?>
-	</td>
-
-	<?php
-	if($conf->global->PRODUCT_USE_UNITS)
-	{
-		print '<td align="left" class="linecoluseunit nowrap">';
-		$label = $line->getLabelOfUnit('short');
-		if ($label !== '') {
-			print $langs->trans($label);
-		}
-		print '</td>';
-	}
-	?>
-
 	<?php if (!empty($line->remise_percent) && $line->special_code != 3) { ?>
 	<td class="linecoldiscount" align="right"><?php
 		$coldisplay++;

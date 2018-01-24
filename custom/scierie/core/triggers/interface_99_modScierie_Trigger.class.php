@@ -31,6 +31,9 @@ require_once DOL_DOCUMENT_ROOT.'/core/triggers/dolibarrtriggers.class.php';
 // Need to add the extrafields 
 require_once (DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php');
 
+//Need to add pricelib
+require_once (DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php');
+
 /**
  *  Class of triggers for scierie module
  */
@@ -141,19 +144,81 @@ class InterfaceTrigger extends DolibarrTriggers
 		// Calcul du prix en fonction de la longueur
 		if (isset($object->array_options['options_lg']))
 		{
-			//print_r($object);
-			/*
-			if ($object->array_options['options_lg']) > 12 )
+			$longueur = $object->array_options['options_lg'];
+			// si c'est un produit référencé
+			if ($object->fk_product)
 			{
-				$conf->global->
-				$object->subprice
-			}*/
+				require_once (DOL_DOCUMENT_ROOT."/product/class/product.class.php");		
+				$product = new Product($this->db);
+				$product->fetch($object->fk_product);
+				
+				$price_level_client=$societe->price_level;
+				if ($product->price_base_type == 'TTC')
+				{
+					if(isset($price_level_client) && $conf->global->PRODUIT_MULTIPRICES)
+						$origineprice=price($product->multiprices_ttc[$price_level_client]);
+					else
+						$origineprice = price($product->price_ttc);
+				}
+				else
+				{
+					if(isset($price_level_client) && $conf->global->PRODUIT_MULTIPRICES)
+						$origineprice = price($product->multiprices[$price_level_client]);
+					else
+						$origineprice = price($product->price);
+				}
+			}
+			else	// si c'est un produit saisie
+				$origineprice = price($object->subprice);
+
+			if (($longueur >= 5.0) && ($longueur < 6.0))
+			{
+				$pu = $origineprice + $conf->global->SCIERIE_PRICE_05 ;
+			}
+			elseif (($longueur >= 6.0) && ($longueur < 7.0))
+			{
+				$pu = $origineprice + $conf->global->SCIERIE_PRICE_06 ;
+			}
+			elseif (($longueur >= 7.0) && ($longueur < 8.0))
+			{
+				$pu = $origineprice + $conf->global->SCIERIE_PRICE_07 ;
+			}
+			elseif (($longueur >= 8.0) && ($longueur < 9.0))
+			{
+				$pu = $origineprice + $conf->global->SCIERIE_PRICE_08 ;
+			}
+			elseif (($longueur >= 9.0) && ($longueur < 10.0))
+			{
+				$pu = $origineprice + $conf->global->SCIERIE_PRICE_09 ;
+			}
+			elseif (($longueur >= 10.0) && ($longueur < 11.0))
+			{
+				$pu = $origineprice + $conf->global->SCIERIE_PRICE_10 ;
+			}
+			elseif (($longueur >= 11.0) && ($longueur < 12.0))
+			{
+				$pu = $origineprice + $conf->global->SCIERIE_PRICE_11 ;
+			}
+			elseif ($longueur >= 12.0)
+			{
+				$pu = $origineprice + $conf->global->SCIERIE_PRICE_11 ;
+			}	
+			else
+			{
+				$pu = $origineprice;
+			}
 			
+			// détection d'un prix changé par l'utilisateur
+			if (($object->subprice != $origineprice) || ($object->subprice != $pu))
+			{
+				$pu = $object->subprice;
+			}
 		}
 		
 		
 		// On met à jour le prix de la ligne 
-		$tabprice = calcul_price_total($object->qty, $object->subprice, $object->remise_percent, $object->tva_tx, $object->localtax1_tx, $object->localtax2_tx, 0, 'HT', 0, $object->product_type);
+		$tabprice = calcul_price_total($object->qty, $pu, $object->remise_percent, $object->tva_tx, $object->localtax1_tx, $object->localtax2_tx, 0, 'HT', 0, $object->product_type);
+		$object->subprice = $pu;
 		$object->total_ht = $tabprice[0];
 		$object->total_tva = $tabprice[1];
 		$object->total_ttc = $tabprice[2];

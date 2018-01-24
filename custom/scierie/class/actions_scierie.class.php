@@ -102,13 +102,13 @@ class ActionsScierie
 		}
 
 		// Nombres
-		print '<td class="linecolnb" align="right">Nb.</td>';
+		print '<td class="linecolnb" align="right" width="20px">Nb.</td>';
 		// Longueur
-		print '<td class="linecollg" align="right">Lg.<br />(m)</td>';
+		print '<td class="linecollg" align="right" width="20px">Lg.<br />(m)</td>';
 		// Hauteur
-		print '<td class="linecolht" align="right">Ht.<br />(cm)</td>';
+		print '<td class="linecolht" align="right" width="20px">Ht.<br />(cm)</td>';
 		// Largeur
-		print '<td class="linecollr" align="right">Lr.<br />(cm)</td>';
+		print '<td class="linecollr" align="right" width="20px">Lr.<br />(cm)</td>';
 		
 		// Qty
 		print '<td class="linecolqty" align="right">'.$langs->trans('Qty').'</td>';

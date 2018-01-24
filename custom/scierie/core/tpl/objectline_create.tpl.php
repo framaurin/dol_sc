@@ -315,7 +315,7 @@ else {
 
 					$html_id = !empty($this->id) ? $this->element.'_extras_'.$key.'_'.$this->id : '';
 					$out .='<td id="'.$html_id.'" class="'.$this->element.'_extras_'.$key.'" >';
-    				$out .= $extrafieldsline->showInputField($key, $value, '', '', '', 0, $this->id);
+    				$out .= $extrafieldsline->showInputField($key, $value, '', '', '', 'maxwidth75', $this->id);
 					$out .= '</td>';
 					$out .= "\n";
 					$e++;

@@ -151,7 +151,7 @@ if (empty($outputalsopricetotalwithtax)) $outputalsopricetotalwithtax=0;
 			foreach($extrafieldsline->attribute_label as $key=>$label)
 			{
 				?>
-				<td align="right" class="linecol<?php echo $key; ?> nowrap"><?php echo $line->array_options['options_'.$key]; ?></td>
+				<td align="right" class="linecol<?php echo $key; ?> nowrap maxwidth50"><?php echo $line->array_options['options_'.$key]; ?></td>
 	<?php	}
 
 		}

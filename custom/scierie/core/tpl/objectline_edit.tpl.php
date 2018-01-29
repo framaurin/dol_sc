@@ -152,7 +152,7 @@ $coldisplay=-1; // We remove first td
 
 					$html_id = !empty($line->id) ? $line->element.'_extras_'.$key.'_'.$line->id : '';
 					$out .='<td id="'.$html_id.'" class="'.$line->element.'_extras_'.$key.'" >';
-    				$out .= $extrafieldsline->showInputField($key, $value, '', '', '', 0, $line->id);
+    				$out .= $extrafieldsline->showInputField($key, $value, '', '', 'maxwidth50', 0, $line->id);
 					$out .= '</td>';
 					$out .= "\n";
 					$e++;

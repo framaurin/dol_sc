@@ -314,8 +314,15 @@ else {
 					}
 
 					$html_id = !empty($this->id) ? $this->element.'_extras_'.$key.'_'.$this->id : '';
-					$out .='<td id="'.$html_id.'" class="'.$this->element.'_extras_'.$key.'" >';
-    				$out .= $extrafieldsline->showInputField($key, $value, '', '', '', 'maxwidth75', $this->id);
+					$out .='<td id="'.$html_id.'" class="'.$this->element.'_extras_'.$key.'" align="center" >';
+					if ($key == 'qty') 
+					{
+						$out .= '<b>Nb</b><br/><br/>';
+					}else
+					{
+						$out .= '<b>'.$key.'</b><br/><br/>';
+					}
+    				$out .= $extrafieldsline->showInputField($key, $value, '', '', '', 'maxwidth50', $this->id);
 					$out .= '</td>';
 					$out .= "\n";
 					$e++;

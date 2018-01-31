@@ -209,7 +209,7 @@ class InterfaceTrigger extends DolibarrTriggers
 			}
 			
 			// détection d'un prix changé par l'utilisateur
-			if (($object->subprice != $origineprice) || ($object->subprice != $pu))
+			if (((int)$object->subprice != (int)$origineprice) && ((int)$object->subprice != (int)$pu))
 			{
 				$pu = $object->subprice;
 			}

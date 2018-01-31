@@ -51,7 +51,7 @@ if (empty($outputalsopricetotalwithtax)) $outputalsopricetotalwithtax=0;
 
 ?>
 <?php $coldisplay=0; ?>
-<!-- BEGIN PHP TEMPLATE objectline_view.tpl.php -->
+<!-- BEGIN PHP TEMPLATE SCIERIE objectline_view.tpl.php -->
 <tr <?php echo 'id="row-'.$line->id.'" '.$bcdd[$var]; ?>>
 	<?php if (! empty($conf->global->MAIN_VIEW_LINE_NUMBER)) { ?>
 	<td class="linecolnum" align="center"><?php $coldisplay++; ?><?php echo ($i+1); ?></td>
@@ -148,7 +148,13 @@ if (empty($outputalsopricetotalwithtax)) $outputalsopricetotalwithtax=0;
 		//Ajout des extrafields
 		if (!empty($extrafieldsline))
 		{
-			foreach($extrafieldsline->attribute_label as $key=>$label)
+			$extrafields_line_label = array(
+				"qty" => "Quantité",
+				"lg" => "Longueur (m)",
+				"ht" => "Hauteur (cm)",
+				"lr" => "Largeur (cm)"
+			);
+			foreach($extrafields_line_label as $key=>$label)
 			{
 				?>
 				<td align="right" class="linecol<?php echo $key; ?> nowrap maxwidth50"><?php echo $line->array_options['options_'.$key]; ?></td>
@@ -291,4 +297,4 @@ if (empty($outputalsopricetotalwithtax)) $outputalsopricetotalwithtax=0;
 <?php } ?>
 
 </tr>
-<!-- END PHP TEMPLATE objectline_view.tpl.php -->
+<!-- END PHP TEMPLATE SCIERIE objectline_view.tpl.php -->

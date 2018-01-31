@@ -68,15 +68,12 @@ if ($nolinesbefore) {
 	</td>
 	<?php if ($object->element == 'supplier_proposal') { ?>
 		<td class="linecolrefsupplier" align="right"><span id="title_fourn_ref"><?php echo $langs->trans('SupplierProposalRefFourn'); ?></span></td>
-	<?php } ?>
-	<td class="linecolvat" align="right"><span id="title_vat"><?php echo $langs->trans('VAT'); ?></span></td>
-	<td class="linecoluht" align="right"><span id="title_up_ht"><?php echo $langs->trans('PriceUHT'); ?></span></td>
-	<?php if (!empty($conf->multicurrency->enabled)) { $colspan++;?>
-	<td class="linecoluht_currency" align="right"><span id="title_up_ht_currency"><?php echo $langs->trans('PriceUHTCurrency'); ?></span></td>
-	<?php } ?>
-	<?php if (! empty($inputalsopricewithtax)) { ?>
-	<td class="linecoluttc" align="right"><span id="title_up_ttc"><?php echo $langs->trans('PriceUTTC'); ?></span></td>
-	<?php } ?>
+	<?php } 
+// MODIFICATION Pour une nouvelle facture vierge ?>
+	<td class="linecolnb maxwidth50" align="right">Nb.</td>';
+	<td class="linecollg maxwidth50" align="right">Lg.<br />(m)</td>';
+	<td class="linecolht maxwidth50" align="right">Ht.<br />(cm)</td>';
+	<td class="linecollr maxwidth50" align="right">Lr.<br />(cm)</td>';
 	<td class="linecolqty" align="right"><?php echo $langs->trans('Qty'); ?></td>
 	<?php
 	if($conf->global->PRODUCT_USE_UNITS)
@@ -86,7 +83,17 @@ if ($nolinesbefore) {
 		print $langs->trans('Unit');
 		print '</span></td>';
 	}
+// FIN MODIFICATION Pour une nouvelle facture vierge 
 	?>
+	<td class="linecolvat" align="right"><span id="title_vat"><?php echo $langs->trans('VAT'); ?></span></td>
+	<td class="linecoluht" align="right"><span id="title_up_ht"><?php echo $langs->trans('PriceUHT'); ?></span></td>
+	<?php if (!empty($conf->multicurrency->enabled)) { $colspan++;?>
+	<td class="linecoluht_currency" align="right"><span id="title_up_ht_currency"><?php echo $langs->trans('PriceUHTCurrency'); ?></span></td>
+	<?php } ?>
+	<?php if (! empty($inputalsopricewithtax)) { ?>
+	<td class="linecoluttc" align="right"><span id="title_up_ttc"><?php echo $langs->trans('PriceUTTC'); ?></span></td>
+	<?php } ?>
+	
 	<td class="linecoldiscount" align="right"><?php echo $langs->trans('ReductionShort'); ?></td>
 	<?php
 	if ($this->situation_cycle_ref) {
@@ -280,7 +287,13 @@ else {
 		if (count($extrafieldsline->attribute_label) > 0)
 		{
 			$e = 0;
-			foreach($extrafieldsline->attribute_label as $key=>$label)
+			$extrafields_line_label = array(
+				"qty" => "Quantité",
+				"lg" => "Longueur (m)",
+				"ht" => "Hauteur (cm)",
+				"lr" => "Largeur (cm)"
+			);
+			foreach($extrafields_line_label as $key=>$label)
 			{
 				if (isset($_POST["options_" . $key])) {
 					if (is_array($_POST["options_" . $key])) {
@@ -798,4 +811,4 @@ function setforpredef() {
 
 </script>
 
-<!-- END PHP TEMPLATE objectline_create.tpl.php -->
+<!-- END PHP TEMPLATE SCIERIE objectline_create.tpl.php -->

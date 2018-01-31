@@ -117,7 +117,13 @@ $coldisplay=-1; // We remove first td
 		if (count($extrafieldsline->attribute_label) > 0)
 		{
 			$e = 0;
-			foreach($extrafieldsline->attribute_label as $key=>$label)
+			$extrafields_line_label = array(
+				"qty" => "Quantité",
+				"lg" => "Longueur (m)",
+				"ht" => "Hauteur (cm)",
+				"lr" => "Largeur (cm)"
+			);
+			foreach($extrafields_line_label as $key=>$label)
 			{
 				if (isset($_POST["options_" . $key])) {
 					if (is_array($_POST["options_" . $key])) {
@@ -152,7 +158,7 @@ $coldisplay=-1; // We remove first td
 
 					$html_id = !empty($line->id) ? $line->element.'_extras_'.$key.'_'.$line->id : '';
 					$out .='<td id="'.$html_id.'" class="'.$line->element.'_extras_'.$key.'" >';
-    				$out .= $extrafieldsline->showInputField($key, $value, '', '', 'maxwidth50', 0, $line->id);
+    				$out .= $extrafieldsline->showInputField($key, $value, '', '', '', 'maxwidth50', $line->id);
 					$out .= '</td>';
 					$out .= "\n";
 					$e++;
@@ -405,4 +411,4 @@ jQuery(document).ready(function()
 });
 
 </script>
-<!-- END PHP TEMPLATE objectline_edit.tpl.php -->
+<!-- END PHP TEMPLATE SCIERIE objectline_edit.tpl.php -->

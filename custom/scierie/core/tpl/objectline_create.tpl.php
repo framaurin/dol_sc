@@ -70,10 +70,10 @@ if ($nolinesbefore) {
 		<td class="linecolrefsupplier" align="right"><span id="title_fourn_ref"><?php echo $langs->trans('SupplierProposalRefFourn'); ?></span></td>
 	<?php } 
 // MODIFICATION Pour une nouvelle facture vierge ?>
-	<td class="linecolnb maxwidth50" align="right">Nb.</td>';
-	<td class="linecollg maxwidth50" align="right">Lg.<br />(m)</td>';
-	<td class="linecolht maxwidth50" align="right">Ht.<br />(cm)</td>';
-	<td class="linecollr maxwidth50" align="right">Lr.<br />(cm)</td>';
+	<td class="linecolnb maxwidth50" align="right">Nb.</td>
+	<td class="linecollg maxwidth50" align="right">Lg.<br />(m)</td>
+	<td class="linecolht maxwidth50" align="right">Ht.<br />(cm)</td>
+	<td class="linecollr maxwidth50" align="right">Lr.<br />(cm)</td>
 	<td class="linecolqty" align="right"><?php echo $langs->trans('Qty'); ?></td>
 	<?php
 	if($conf->global->PRODUCT_USE_UNITS)
